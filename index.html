@@ -56,7 +56,29 @@
             <td>1Hour</td>
         </tr>
     </table>
-
+    <hr>
+    <h2>Unzip a file with PHP</h2>
+    <q>How to Unzip a file with PHP</q>
+    <p></p>
+    <a href="https://stackoverflow.com/questions/8889025/unzip-a-file-with-php">This link will show how to unzip a file with PHP</a>
+    <pre>
+        <?php
+        $zip = zip_open("zip.zip");
+        if (is_resource($zip)) {
+          while ($zip_entry = zip_read($zip)) {
+            $fp = fopen("zip/".zip_entry_name($zip_entry), "w");
+            if (zip_entry_open($zip, $zip_entry, "r")) {
+              $buf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+              fwrite($fp,"$buf");
+              zip_entry_close($zip_entry);
+              fclose($fp);
+            }
+          }
+          zip_close($zip);
+        }
+        ?>
+    </pre>    
+    
     
 
 
